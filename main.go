@@ -52,12 +52,11 @@ func main() {
 	}
 	if buf.Len() > 0 {
 		fmt.Fprintf(os.Stderr, `
-Untracked or modified files present in the Git worktree after running command:
+Untracked or modified files present after running '%s':
 
-	%s
-
+%s
 The command should not generate a diff. Please fix the problem and try again.
-`, strings.Join(os.Args[1:], " "))
+`, strings.Join(os.Args[1:], " "), buf.String())
 		os.Exit(2)
 	}
 }
