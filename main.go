@@ -41,7 +41,7 @@ func main() {
 		// just do 2
 		os.Exit(2)
 	}
-	gitCmd := exec.Command("git", "status", "--porcelain=v2")
+	gitCmd := exec.Command("git", "status", "--porcelain")
 	buf := new(bytes.Buffer)
 	gitCmd.Stdout = buf
 	gitCmd.Stderr = buf
