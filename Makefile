@@ -16,6 +16,10 @@ ifndef version
 	@echo "Please provide a version"
 	exit 1
 endif
+ifndef GITHUB_TOKEN
+	@echo "Please set GITHUB_TOKEN in the environment"
+	exit 1
+endif
 	git tag $(version)
 	git push origin --tags
 	mkdir -p releases/$(version)
