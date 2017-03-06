@@ -46,7 +46,8 @@ func main() {
 	gitCmd.Stdout = buf
 	gitCmd.Stderr = buf
 	if err := gitCmd.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "\ndiffer: Error running git status --porcelain: %v\n", err)
+		fmt.Fprintf(os.Stderr, "\ndiffer: Error running git status --porcelain: %v\n\nOutput: %s",
+			err, buf.String())
 		os.Exit(2)
 	}
 	if buf.Len() > 0 {
