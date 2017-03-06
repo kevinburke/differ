@@ -35,9 +35,12 @@ will exit with a non-zero return code if:
 Find your target operating system (darwin, windows, linux) and desired bin
 directory, and modify the command below as appropriate:
 
-    curl -L https://github.com/kevinburke/differ/releases/download/0.1/differ-linux-amd64 > /usr/local/bin/differ && chmod 755 /usr/local/bin/differ
+    curl -L https://github.com/kevinburke/differ/releases/download/0.3/differ-linux-amd64 > /usr/local/bin/differ && chmod 755 /usr/local/bin/differ
 
-The latest version is 0.1.
+On Travis, you may want to create `$HOME/bin` and write to that, since
+/usr/local/bin isn't writable with their container-based infrastructure.
+
+The latest version is 0.3.
 
 If you have a Go development environment, you can also install via source code:
 
