@@ -1,5 +1,5 @@
-STATICCHECK := $(shell command -v staticcheck)
-RELEASE := $(shell command -v github-release)
+STATICCHECK := $(GOPATH)/bin/staticcheck
+RELEASE := $(GOPATH)/bin/github-release
 
 vet:
 ifndef STATICCHECK
@@ -11,7 +11,10 @@ endif
 test: vet
 	go test ./...
 
-release:
+$(RELEASE): test
+	go get -u github.com/aktau/github-release
+
+release: $(RELEASE)
 ifndef version
 	@echo "Please provide a version"
 	exit 1
@@ -26,11 +29,8 @@ endif
 	GOOS=linux GOARCH=amd64 go build -o releases/$(version)/differ-linux-amd64 .
 	GOOS=darwin GOARCH=amd64 go build -o releases/$(version)/differ-darwin-amd64 .
 	GOOS=windows GOARCH=amd64 go build -o releases/$(version)/differ-windows-amd64 .
-ifndef RELEASE
-	go get -u github.com/aktau/github-release
-endif
 	# these commands are not idempotent so ignore failures if an upload repeats
-	github-release release --user kevinburke --repo differ --tag $(version) || true
-	github-release upload --user kevinburke --repo differ --tag $(version) --name differ-linux-amd64 --file releases/$(version)/differ-linux-amd64 || true
-	github-release upload --user kevinburke --repo differ --tag $(version) --name differ-darwin-amd64 --file releases/$(version)/differ-darwin-amd64 || true
-	github-release upload --user kevinburke --repo differ --tag $(version) --name differ-windows-amd64 --file releases/$(version)/differ-windows-amd64 || true
+	$(RELEASE) release --user kevinburke --repo differ --tag $(version) || true
+	$(RELEASE) upload --user kevinburke --repo differ --tag $(version) --name differ-linux-amd64 --file releases/$(version)/differ-linux-amd64 || true
+	$(RELEASE) upload --user kevinburke --repo differ --tag $(version) --name differ-darwin-amd64 --file releases/$(version)/differ-darwin-amd64 || true
+	$(RELEASE) upload --user kevinburke --repo differ --tag $(version) --name differ-windows-amd64 --file releases/$(version)/differ-windows-amd64 || true
