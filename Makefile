@@ -1,12 +1,12 @@
 STATICCHECK := $(GOPATH)/bin/staticcheck
 RELEASE := $(GOPATH)/bin/github-release
 
-vet:
-ifndef STATICCHECK
+$(STATICCHECK):
 	go get -u honnef.co/go/tools/cmd/staticcheck
-endif
+
+vet: $(STATICCHECK)
 	go vet ./...
-	staticcheck ./...
+	$(STATICCHECK) ./...
 
 test: vet
 	go test ./...
