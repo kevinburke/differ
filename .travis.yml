@@ -2,8 +2,10 @@ language: go
 go_import_path: github.com/kevinburke/differ
 
 go:
-  - 1.7
-  - 1.8
-  - tip
+  - 1.7.x
+  - 1.8.x
+  - 1.9.x
+  - 1.10.x
+  - master
 
 script: make test
