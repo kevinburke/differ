@@ -17,6 +17,8 @@ Execute utility with the given arguments. Then exit with an error if git reports
 there are untracked changes.
 `
 
+const Version = "1.0"
+
 func init() {
 	flag.Usage = func() {
 		os.Stderr.WriteString(usage)
@@ -44,12 +46,17 @@ func getGitDiff(ctx context.Context) string {
 }
 
 func main() {
+	vsn := flag.Bool("v", false, "Print the version")
 	flag.Parse()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	if len(os.Args) <= 1 {
 		flag.Usage()
 		os.Exit(2)
+	}
+	if *vsn {
+		fmt.Fprintf(os.Stdout, "differ version %s\n", Version)
+		os.Exit(0)
 	}
 	var cmd *exec.Cmd
 	if len(os.Args) == 2 {
