@@ -68,7 +68,7 @@ func main() {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
-		os.Stderr.WriteString("\n\nthe run command exited with an error; bailing")
+		fmt.Fprintf(os.Stderr, "\n\nthe %q command exited with an error; quitting\n", os.Args[1])
 		// actually really difficult to pass through the return code from Run so
 		// just do 2
 		os.Exit(2)
