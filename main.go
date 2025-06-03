@@ -18,7 +18,7 @@ Execute utility with the given arguments. Then exit with an error if git reports
 there are untracked changes.
 `
 
-const Version = "1.2"
+const Version = "1.3"
 
 func init() {
 	flag.Usage = func() {
