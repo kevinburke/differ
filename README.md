@@ -5,6 +5,7 @@ git worktree. You can use this in tests or the build process to verify that
 a given build step was run correctly. For example you may want to verify that
 all files in a Go project have run `go fmt`. Run:
 
+
 ```
 differ go fmt ./...
 ```
