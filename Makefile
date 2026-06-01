@@ -5,6 +5,8 @@ vet:
 test: vet
 	go test -trimpath -race ./...
 
-release:
-	bump_version minor main.go
-	git push origin --tags
+version ?= minor
+
+.PHONY: release
+release: test
+	go run github.com/kevinburke/bump_version@latest --tag-prefix=v $(version) version.go

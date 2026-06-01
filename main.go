@@ -18,8 +18,6 @@ Execute utility with the given arguments. Then exit with an error if git reports
 there are untracked changes.
 `
 
-const Version = "1.1"
-
 func init() {
 	flag.Usage = func() {
 		os.Stderr.WriteString(usage)
